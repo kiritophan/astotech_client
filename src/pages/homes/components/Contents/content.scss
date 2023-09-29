@@ -1,0 +1,38 @@
+@import url('https://fonts.cdnfonts.com/css/windsor-pro');
+
+h2 {
+    margin: 40px 0;
+    color: $main_color;
+}
+
+.guide-lading {
+    display: flex;
+    flex-wrap: wrap;
+    width: 90%;
+    margin: 100px auto 0px;
+    gap: 35px;
+
+    p {
+        color: $main_color;
+    }
+
+    span {
+        color: $main_color;
+    }
+
+
+    .brew-guide {
+        width: 30%;
+
+        img {
+            cursor: pointer;
+        }
+
+        h3 {
+            font-family: 'Roboto', sans-serif;
+            font-size: 40px;
+            margin-top: 5%;
+            letter-spacing: 2px;
+        }
+    }
+}
