@@ -150,8 +150,7 @@ export default function CartCom() {
                                 })
 
                             }}>
-                                <input name='payMode' type="radio" value={"CASH"} defaultChecked />Cash
-                                <input name='payMode' type="radio" value={"ZALO"} />Zalo
+
                                 <button type='submit'
                                     className="btn btn-primary text-capitalize" onClick={() => navigate("/checkout")}>Thanh Toán</button>
                             </form>

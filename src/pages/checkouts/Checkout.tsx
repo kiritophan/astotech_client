@@ -4,6 +4,7 @@ import api from '@/services/apis';
 import { message } from 'antd';
 import { StoreType } from '@/stores';
 import { useSelector } from 'react-redux';
+import { QRCode } from 'antd'
 
 interface Product {
     id: string;
@@ -53,11 +54,21 @@ export default function Checkout() {
 
     function handleCheckOut(e: React.FormEvent) {
         e.preventDefault();
-        userStore.socket?.emit("payCash", {
-            receiptId: userStore.cart?.id,
-            userId: userStore.data?.id,
-            total: subTotal
-        })
+        let payMode = (e.target as any).payMode.value;
+        console.log("payMode", payMode)
+        if (payMode == "CASH") {
+            userStore.socket?.emit("payCash", {
+                receiptId: userStore.cart?.id,
+                userId: userStore.data?.id
+            })
+        }
+
+        if (payMode == "ZALO") {
+            userStore.socket?.emit("payZalo", {
+                receiptId: userStore.cart?.id,
+                userId: userStore.data?.id
+            })
+        }
     }
 
     const subTotal = cart?.reduce((total: number, item: any) => {
@@ -136,6 +147,9 @@ export default function Checkout() {
                     </button>
                 </form>
                 <div className='checkout-content'></div>
+                {
+                    userStore.cartPayQr && <QRCode value={userStore.cartPayQr} icon='https://cdn.haitrieu.com/wp-content/uploads/2022/10/Logo-ZaloPay-Square.png' />
+                }
             </div>
             <aside className='sidebar'>
                 <div className="sidebar-content">

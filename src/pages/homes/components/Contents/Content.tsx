@@ -57,72 +57,22 @@ export default function Content() {
                     </div>
                 ))}
             </div>
-
-            {/* <div className='featured-products-container'>
-                <h2>Featured Products</h2>
-                <div className='featured-products'>
-                    <div className='product'>
-                        <img src="https://firebasestorage.googleapis.com/v0/b/coffee-app-bbb51.appspot.com/o/images%2Fbanner%2Fproduct-01.webp?alt=media&token=965263a5-09cd-4b70-ba04-8e598fdd092c" alt="" />
-                        <div className='product-desc'>
-                            <p>16$</p>
-                            <div className='product-quantity'>
-                                <button>
-                                    <span className="material-symbols-outlined">
-                                        add
-                                    </span>
-                                </button>
-                                <span>0</span>
-                                <button>
-                                    <span className="material-symbols-outlined">
-                                        remove
-                                    </span>
-                                </button>
-                            </div>
-                        </div>
-                        <button className='add-to-cart-button'>Add to cart</button>
-                    </div>
-                    <div className='product'>
-                        <img src="https://firebasestorage.googleapis.com/v0/b/coffee-app-bbb51.appspot.com/o/images%2Fbanner%2Fproduct-02.webp?alt=media&token=6fe14414-36fd-4482-a00c-1c725684e498" alt="" />
-                        <div className='product-desc'>
-                            <p>16$</p>
-                            <div className='product-quantity'>
-                                <button>
-                                    <span className="material-symbols-outlined">
-                                        add
-                                    </span>
-                                </button>
-                                <span>0</span>
-                                <button>
-                                    <span className="material-symbols-outlined">
-                                        remove
-                                    </span>
-                                </button>
-                            </div>
-                        </div>
-                        <button className='add-to-cart-button'>Add to cart</button>
-                    </div>
-                    <div className='product'>
-                        <img src="https://firebasestorage.googleapis.com/v0/b/coffee-app-bbb51.appspot.com/o/images%2Fbanner%2Fproduct-03.webp?alt=media&token=202bb101-5918-42b3-848d-4e0792e727bd" alt="" />
-                        <div className='product-desc'>
-                            <p>16$</p>
-                            <div className='product-quantity'>
-                                <button>
-                                    <span className="material-symbols-outlined">
-                                        add
-                                    </span>
-                                </button>
-                                <span>0</span>
-                                <button>
-                                    <span className="material-symbols-outlined">
-                                        remove
-                                    </span>
-                                </button>
-                            </div>
-                        </div>
-                        <button className='add-to-cart-button'>Add to cart</button>
+            {/* {products?.map((item: any) => (
+                <div className="card row isotope-grid" style={{ width: "18rem" }}>
+                    <img className="card-img-top" src={item.options[0].pictures[0].icon} alt="Card image cap" />
+                    <div className="card-body">
+                        <h5 className="card-title">Card title</h5>
+                        <p className="card-text">
+                            Some quick example text to build on the card title and make up the bulk of
+                            the card's content.
+                        </p>
+                        <a href="#" className="btn btn-primary">
+                          {item.name}
+                        </a>
                     </div>
                 </div>
-            </div> */}
+            ))} */}
+
         </>
     )
 }

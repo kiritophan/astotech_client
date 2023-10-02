@@ -102,6 +102,35 @@ function App() {
           dispatch(userAction.setCart(cart))
         })
 
+        socket.on("cash-status", (status: boolean) => {
+          if (status) {
+            Modal.success({
+              title: "Đã thanh toán thành công",
+              content: "Cảm ơn bạn đã mua hàng",
+              onOk: () => {
+                // console.log("đã vào!")
+                window.location.href = "/thanks"
+              }
+            })
+          }
+        })
+
+        socket.on("payQr", (url: string | null) => {
+          dispatch(userAction.setCartPayQr(url))
+          if (!url) {
+            Modal.confirm({
+              title: "Thanh toán thất bại",
+              content: "Bạn có muốn thanh toán lại không?",
+              onOk: () => {
+                socket.emit("payZalo", {
+                  receiptId: userStore.cart?.id,
+                  userId: userStore.data?.id
+                })
+              }
+            })
+          }
+        })
+
 
         dispatch(userAction.setSocket(socket))
       }

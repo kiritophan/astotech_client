@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux';
 import { StoreType } from '@/stores';
 import { User } from '@/stores/slices/user.slice'
@@ -8,6 +8,8 @@ export default function Login() {
   const userStore = useSelector((store: StoreType) => {
     return store.userStore
   })
+
+  const navigate = useNavigate();
   function handleLogin(e: React.FormEvent) {
     e.preventDefault();
     let data = {
@@ -35,6 +37,7 @@ export default function Login() {
   console.log("userStore", userStore);
 
   return (
+
     // <div>
     //   {
     //     userStore == null ?
@@ -208,7 +211,8 @@ export default function Login() {
                   </div>
                   <div className="form-group">
                     <label htmlFor="remember-me" className="text-info">
-                      <span>Remember me</span>&nbsp;
+                      <span onClick={() => navigate('/reset-password')}>Forgot Password</span>&nbsp; <br />
+                      <span onClick={() => navigate('/change-password')}>Change Password</span>&nbsp;
                       <span>
                         <input id="remember-me" name="remember-me" type="checkbox" />
                       </span>
