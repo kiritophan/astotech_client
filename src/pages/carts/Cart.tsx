@@ -1,11 +1,21 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { StoreType } from '@/stores'
+import { useNavigate } from 'react-router-dom'
 export default function CartCom() {
+    const navigate = useNavigate();
     const userStore = useSelector((store: StoreType) => {
         return store.userStore
     })
     console.log("userstore", userStore)
+
+    const cart = userStore.cart?.detail;
+    const subTotal = cart?.reduce((total: number, item: any) => {
+        return total += item.quantity * item.option.price
+    }, 0)
+    console.log("subTotal", subTotal)
+
+
     return (
         <div>
 
@@ -124,16 +134,9 @@ export default function CartCom() {
                                 <div className="col-xl-3">
                                     <ul className="list-unstyled">
                                         <li className="text-muted ms-3">
-                                            <span className="text-black me-4">SubTotal</span>$1110
-                                        </li>
-                                        <li className="text-muted ms-3 mt-2">
-                                            <span className="text-black me-4">Tax(15%)</span>$111
+                                            <span className="text-black me-4">Sub Total</span>${subTotal}
                                         </li>
                                     </ul>
-                                    <p className="text-black float-start">
-                                        <span className="text-black me-3"> Total Amount</span>
-                                        <span style={{ fontSize: 25 }}></span>
-                                    </p>
                                 </div>
                             </div>
                             <hr />
@@ -150,7 +153,7 @@ export default function CartCom() {
                                 <input name='payMode' type="radio" value={"CASH"} defaultChecked />Cash
                                 <input name='payMode' type="radio" value={"ZALO"} />Zalo
                                 <button type='submit'
-                                    className="btn btn-primary text-capitalize">Thanh Toán</button>
+                                    className="btn btn-primary text-capitalize" onClick={() => navigate("/checkout")}>Thanh Toán</button>
                             </form>
                         </div>
                     </div>

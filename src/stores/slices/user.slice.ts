@@ -103,6 +103,7 @@ export interface ReceiptDetail {
     option: {
         id: string;
         name: string;
+        price: number;
         productId: string;
         product: Product;
         pictures: {

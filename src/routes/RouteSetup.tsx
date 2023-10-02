@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import RouteUser from './RouteUser'
 import AdminRoute from '@pages/admin/Route'
 import RouteProduct from './RouteProduct'
+import Lazy from '@/lazies/Lazy'
 
 export default function RouteSetup() {
   return (
@@ -15,7 +16,7 @@ export default function RouteSetup() {
           {RouteUser}
           {RouteProduct}
         </Route>
-
+        <Route path="/checkout" element={Lazy(() => import("@pages/checkouts/Checkout"))()}></Route>
         {AdminRoute}
       </Routes>
     </BrowserRouter>
