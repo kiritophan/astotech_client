@@ -114,23 +114,7 @@ export default function ProductCategory() {
                                         </a>
                                         <span className="stext-105 cl3">{item.options[0].price}</span>
                                     </div>
-                                    {/* <div className="block2-txt-child2 flex-r p-t-3">
-                                        <a
-                                            href="#"
-                                            className="btn-addwish-b2 dis-block pos-relative js-addwish-b2"
-                                        >
-                                            <img
-                                                className="icon-heart1 dis-block trans-04"
-                                                src="images/icons/icon-heart-01.png"
-                                                alt="ICON"
-                                            />
-                                            <img
-                                                className="icon-heart2 dis-block trans-04 ab-t-l"
-                                                src="images/icons/icon-heart-02.png"
-                                                alt="ICON"
-                                            />
-                                        </a>
-                                    </div> */}
+
                                 </div>
                             </div>
 

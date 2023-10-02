@@ -78,58 +78,152 @@ export default function Register() {
   }
   return (
     <>
-      <div className="register_page">
+      {/* <div className="register_page">
         <div className="register_form">
-          {/* Logo */}
+         
           <div className="logo">
-            {/* <i className="fa-solid fa-cat"></i> */}
+          
             <span>Uniqlo Register</span>
           </div>
-          {/* Form */}
+        
           <form onSubmit={(e) => {
             handleRegister(e)
           }} className="form_content">
-            {/* User Name */}
+           
             <div className="form_input">
               <input name="user_name" type="text" />
               <span>User name: </span>
             </div>
-            {/* Email */}
+         
             <div className="form_input">
               <input name="email" type="email" />
               <span>Email: </span>
             </div>
-            {/* First Name */}
+           
             <div className="form_input">
               <input name="firstName" type="text" />
               <span>First Name: </span>
             </div>
-            {/* Last Name */}
+          
             <div className="form_input">
               <input name="lastName" type="text" />
               <span>Last Name: </span>
             </div>
-            {/* Password */}
+         
             <div className="form_input">
               <input name="password" type="password" />
               <span>Password: </span>
             </div>
-            {/* Re Enter Password */}
-            {/* <div className="form_input">
-              <input name="password_again" type="password" />
-              <span>Password Again: </span>
-            </div> */}
+          
             <div className="form_submit">
               <button type="submit" className="form_submit_btn btn btn-success">Register</button>
             </div>
           </form>
-          {/* Redirect */}
+       
           <div className="redirect">
             <a href="/login">Bạn đã có tài khoản ? <span style={{ textDecoration: "underline", color: "#16bbf7" }}>Login now!</span></a>
           </div>
         </div>
+      </div> */}
+      <div id="login">
+        <h3 className="text-center text-white pt-5">Login form</h3>
+        <div className="container">
+          <div
+            id="login-row"
+            className="row justify-content-center align-items-center"
+          >
+            <div id="login-column" className="col-md-6">
+              <div id="login-box" className="col-md-12">
+                <form onSubmit={(e) => {
+                  handleRegister(e)
+                }} id="login-form" className="form" action="" method="post">
+                  <h3 className="text-center text-info">Login</h3>
+                  <div className="form-group">
+                    <label htmlFor="username" className="text-info">
+                      Username:
+                    </label>
+                    <br />
+                    <input
+                      type="text"
+                      name="userName"
+                      id="username"
+                      className="form-control"
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="username" className="text-info">
+                      Email:
+                    </label>
+                    <br />
+                    <input
+                      name="email"
+                      type="email"
+                      id="username"
+                      className="form-control"
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="username" className="text-info">
+                      FirstName:
+                    </label>
+                    <br />
+                    <input
+                      type="text"
+                      name="firstName"
+                      id="username"
+                      className="form-control"
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="username" className="text-info">
+                      LastName:
+                    </label>
+                    <br />
+                    <input
+                      type="text"
+                      name="lastName"
+                      id="username"
+                      className="form-control"
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="password" className="text-info">
+                      Password:
+                    </label>
+                    <br />
+                    <input
+                      type="text"
+                      name="password"
+                      id="password"
+                      className="form-control"
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="remember-me" className="text-info">
+                      <span>Remember me</span>&nbsp;
+                      <span>
+                        <input id="remember-me" name="remember-me" type="checkbox" />
+                      </span>
+                    </label>
+                    <br />
+                    <input
+                      type="submit"
+                      name="submit"
+                      className="btn btn-info btn-md"
+                      defaultValue="submit"
+                    />
+                  </div>
+                  <div id="register-link" className="text-right">
+                    <a href="/login" className="text-info">
+                      Login now
+                    </a>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-
     </>
   )
 }

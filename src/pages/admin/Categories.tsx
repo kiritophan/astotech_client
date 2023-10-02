@@ -1,26 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
 import api from '@services/apis'
 
-interface Category {
-    id: string;
-    title: string;
-    avatar: string;
-    status: boolean;
-    products: Product[];
+interface Subcategory {
+    title: string,
+    id: number
 }
-interface Product {
-    id: string;
-    desc: string;
-    avatar: string;
-    name: string;
-    price: number;
-    categoryId: string;
-}
-interface Picture {
-    file: File;
-    url: string;
-}
-export default function AddProduct() {
+
+export default function AddCategory() {
     const imgPreviewRef = useRef();
     const [categories, setCategories] = useState([]);
     console.log("categories", categories)

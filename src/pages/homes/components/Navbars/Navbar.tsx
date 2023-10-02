@@ -62,7 +62,7 @@ export default function Navbar() {
                     <span>{t("Locations")}</span>
                     <span>{t("Wholesale")}</span>
                 </div>
-                <div className='right-nav'>
+                {/* <div className='right-nav'>
                     <span className='right-nav-icon'><Search /></span>
                     <span className='right-nav-icon'>
                         <DropdownLogout />
@@ -77,6 +77,16 @@ export default function Navbar() {
                     </span>
 
 
+                </div> */}
+                <div className='nav__bottom__right'>
+                    <Search />
+                    <div className='nav__bottom__right__icon'>
+                        <span className="material-symbols-outlined">
+                            favorite
+                        </span>
+                    </div>
+                    <Cart />
+                    <DropdownLogout />
                 </div>
             </div>
         </nav>

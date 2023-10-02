@@ -1,95 +1,3 @@
-// import React, { useEffect, useState } from 'react'
-// import { useParams } from 'react-router-dom'
-// import { useSelector, useDispatch } from 'react-redux';
-// import { StoreType } from '../../../stores';
-// import { Product } from '../../../interfaces/product.interface';
-// export default function ProductDetail() {
-//     const productStore = useSelector((store: StoreType) => {
-//         return store.productStore
-//     })
-//     const receiptStore = useSelector((store: StoreType) => {
-//         return store.receiptStore
-//     })
-//     const { productId } = useParams();
-
-//     const [product, setProduct] = useState<Product | null>(null);
-
-//     const [optionPictureIndex, setOptionPictureIndex] = useState(0)
-//     const [optionIndex, setOptionIndex] = useState(0)
-
-//     const [quantity, setQuantity] = useState(1);
-//     useEffect(() => {
-//         if (productStore.data) {
-//             setProduct(productStore.data.find(product => product.id == productId) ?? null);
-//         }
-//     }, [productId, productStore.data])
-
-//     useEffect(() => {
-//         console.log("product", product)
-//     }, [product])
-
-//     useEffect(() => {
-//         if (receiptStore.cart) {
-//             console.log("cart", receiptStore.cart)
-//         }
-//     }, [receiptStore.cart])
-//     return (
-//         <div>
-//             <h2>ProductDetail</h2>
-//             {
-//                 product && <div className='productCart'>
-//                     <h2>{product.name}</h2>
-//                     <h2>{product.des}</h2>
-//                     <div style={{ display: "flex", flexDirection: "column" }}>
-//                         <img style={{ width: "150px", height: "150px", borderRadius: "50%" }} src={product.options[optionIndex].pictures[optionPictureIndex].icon} />
-//                         <div>
-//                             {
-//                                 product.options[optionIndex].pictures.map((picture, index) => <img onClick={() => {
-//                                     setOptionPictureIndex(index)
-//                                 }} key={picture.id} src={picture.icon} style={{ width: "40px", height: "40px", borderRadius: "50%" }} />)
-//                             }
-//                         </div>
-//                         <div>
-//                             Title: {product.options[optionIndex].title}
-//                             <br />
-//                             Price: {product.options[optionIndex].price}
-//                         </div>
-//                     </div>
-//                     <div>
-//                         Danh Sách Option
-//                         {
-//                             product.options.map((option, index) => {
-//                                 return (
-//                                     option.pictures.length != 0 &&
-//                                     <img onClick={() => {
-//                                         setOptionIndex(index)
-//                                         setOptionPictureIndex(0)
-//                                         setQuantity(1)
-//                                     }} key={option.id} src={option.pictures[0].icon} style={{ width: "100px", height: "100px", borderRadius: "10px", marginRight: "10px" }} />
-//                                 )
-//                             })
-//                         }
-
-//                     </div>
-//                     <div>
-//                         quantity <input type="number" min={1} max={100} value={quantity} onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-//                             setQuantity(Number(e.target.value))
-//                         }} />
-//                         <button onClick={() => {
-//                             let newItem = {
-//                                 receiptId: receiptStore.cart.id,
-//                                 optionId: product.options[optionIndex].id,
-//                                 quantity
-//                             }
-//                             receiptStore.socket?.emit("addToCart", newItem)
-//                         }}>Mua</button>
-//                     </div>
-//                 </div>
-//             }
-//         </div>
-//     )
-// }
-
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { StoreType } from '../../../stores';
@@ -246,8 +154,7 @@ export default function ProductDetail() {
                                                 </div>
                                             </div>
                                             <button className="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail" onClick={() => {
-                                                // setProductData(product)
-                                                // setIsOpenModal(true)
+
                                                 if (userStore.socket) {
                                                     userStore.socket.emit("addToCart", {
                                                         receiptId: userStore.cart?.id,
@@ -298,9 +205,9 @@ export default function ProductDetail() {
                         </div>
                     </div>
                     <div className="bor10 m-t-50 p-t-43 p-b-40">
-                        {/* Tab01 */}
+
                         <div className="tab01">
-                            {/* Nav tabs */}
+
                             <ul className="nav nav-tabs" role="tablist">
                                 <li className="nav-item p-b-10">
                                     <a
@@ -333,9 +240,9 @@ export default function ProductDetail() {
                                     </a>
                                 </li>
                             </ul>
-                            {/* Tab panes */}
+
                             <div className="tab-content p-t-43">
-                                {/* - */}
+
                                 <div
                                     className="tab-pane fade show active"
                                     id="description"
@@ -390,15 +297,15 @@ export default function ProductDetail() {
                                         </div>
                                     </div>
                                 </div>
-                                {/* - */}
+
                                 <div className="tab-pane fade" id="reviews" role="tabpanel">
                                     <div className="row">
                                         <div className="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
                                             <div className="p-b-30 m-lr-15-sm">
-                                                {/* Review */}
+
                                                 <div className="flex-w flex-t p-b-68">
                                                     <div className="wrap-pic-s size-109 bor0 of-hidden m-r-18 m-t-6">
-                                                        <img src="images/avatar-01.jpg" alt="AVATAR" />
+                                                        <img src="" alt="AVATAR" />
                                                     </div>
                                                     <div className="size-207">
                                                         <div className="flex-w flex-sb-m p-b-17">
@@ -419,7 +326,7 @@ export default function ProductDetail() {
                                                         </p>
                                                     </div>
                                                 </div>
-                                                {/* Add review */}
+
                                                 <form className="w-full">
                                                     <h5 className="mtext-108 cl2 p-b-7">Add a review</h5>
                                                     <p className="stext-102 cl6">

@@ -94,5 +94,30 @@ nav {
                 }
             }
         }
+
+        .nav__bottom__right {
+            width: 15%;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+
+            .nav__bottom__right__icon {
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                padding: 7px;
+                border-radius: 50%;
+
+                &:hover {
+                    background-color: #e5e5e5;
+                }
+            }
+
+            // .nav__bottom__right__icon__cart {
+            //     cursor: pointer;
+            //     display: flex;
+            //     align-items: center;
+            // }
+        }
     }
 }
