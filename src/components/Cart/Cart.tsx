@@ -183,13 +183,7 @@ const text = 'Are you sure to delete this task?';
 const description = 'Delete product';
 import { useSelector } from 'react-redux';
 import { StoreType } from '@/stores';
-// Define a union type for the allowed placement values
-type OffcanvasPlacement = 'top' | 'bottom' | 'start' | 'end';
 
-interface OffCanvasExampleProps {
-    name: string;
-    placement: OffcanvasPlacement | undefined; // Use the defined union type
-}
 
 interface Product {
     id: string;
@@ -254,7 +248,7 @@ export default function cart() {
         setCart(updatedCart);
         // console.log("productId", productId)
     }
-    
+
 
     const subTotal = cart.reduce((total, item) => {
         return total + item.quantity * item.productDetail.price

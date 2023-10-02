@@ -21,6 +21,8 @@ export default function ProductDetail() {
 
     const [product, setProduct] = useState(null);
 
+    const [quantity, setQuantity] = useState(1);
+
     const [optionPictureIndex, setOptionPictureIndex] = useState(0)
 
     const [optionIndex, setOptionIndex] = useState(0)
@@ -141,16 +143,22 @@ export default function ProductDetail() {
                                         <div className="size-204 flex-w flex-m respon6-next">
                                             <div className="wrap-num-product flex-w m-r-20 m-tb-10">
                                                 <div className="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-                                                    <i className="fs-16 zmdi zmdi-minus" />
+                                                    <i className="fs-16 zmdi zmdi-minus" onClick={() => {
+                                                        if (quantity > 1) {
+                                                            setQuantity(quantity - 1)
+                                                        }
+                                                    }
+                                                    } />
                                                 </div>
                                                 <input
                                                     className="mtext-104 cl3 txt-center num-product"
                                                     type="number"
                                                     name="num-product"
-                                                    defaultValue={1}
+                                                    // defaultValue={1}
+                                                    value={quantity}
                                                 />
                                                 <div className="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-                                                    <i className="fs-16 zmdi zmdi-plus" />
+                                                    <i className="fs-16 zmdi zmdi-plus" onClick={() => setQuantity(quantity + 1)} />
                                                 </div>
                                             </div>
                                             <button className="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail" onClick={() => {
@@ -159,7 +167,7 @@ export default function ProductDetail() {
                                                     userStore.socket.emit("addToCart", {
                                                         receiptId: userStore.cart?.id,
                                                         optionId: (product as any)?.options[0].id,
-                                                        quantity: 10
+                                                        quantity: 1
                                                     })
                                                 }
                                             }}>
@@ -250,17 +258,7 @@ export default function ProductDetail() {
                                 >
                                     <div className="how-pos2 p-lr-15-md">
                                         <p className="stext-102 cl6">
-                                            Aenean sit amet gravida nisi. Nam fermentum est felis, quis
-                                            feugiat nunc fringilla sit amet. Ut in blandit ipsum. Quisque
-                                            luctus dui at ante aliquet, in hendrerit lectus interdum. Morbi
-                                            elementum sapien rhoncus pretium maximus. Nulla lectus enim,
-                                            cursus et elementum sed, sodales vitae eros. Ut ex quam, porta
-                                            consequat interdum in, faucibus eu velit. Quisque rhoncus ex ac
-                                            libero varius molestie. Aenean tempor sit amet orci nec iaculis.
-                                            Cras sit amet nulla libero. Curabitur dignissim, nunc nec
-                                            laoreet consequat, purus nunc porta lacus, vel efficitur tellus
-                                            augue in ipsum. Cras in arcu sed metus rutrum iaculis. Nulla non
-                                            tempor erat. Duis in egestas nunc.
+                                            {(product as any)?.des}
                                         </p>
                                     </div>
                                 </div>

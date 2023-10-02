@@ -3,12 +3,41 @@ import './content.scss';
 // import MultiCarousel from '@/components/MultiCarousel/MultiCarousel';
 import "react-multi-carousel/lib/styles.css";
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import api from '@/services/apis';
 
 export default function Content() {
-    const navigate = useNavigate();
-    const { t } = useTranslation()
+    // const navigate = useNavigate();
+    // const { t } = useTranslation()
+    const { id } = useParams();
 
+    console.log("id", id);
+
+    const [products, setProducts] = useState([]);
+    const [categories, setCategories] = useState([]);
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        api.productApi.findAll()
+            .then(res => {
+                if (res.status == 200) {
+                    console.log("res", res.data.data)
+                    setProducts(res.data.data)
+                }
+            })
+    }, [])
+
+    useEffect(() => {
+        api.categoryApi.findAll()
+            .then(res => {
+                if (res.status == 200) {
+                    console.log("rescate", res)
+                    setCategories(res.data.data)
+                }
+            })
+    }, [])
+    console.log("products", products)
     return (
         <>
             <h2>Our Products</h2>
@@ -17,39 +46,18 @@ export default function Content() {
                 <br /> Technicut excels in the design and manufacture of optimised cutting solutions for the complete array of aerospace materials.
                 <br />Our continual drive to deliver market leading innovations has led to our development of bespoke material substrates, tooling geometries & coatings to provide optimised production performance in all aerospace applications.
             </p>
-
-            <div className='guide-lading'>
-                <div className="brew-guide">
-                    <img src="https://www.technicut.co.uk/images/mega-flute.jpg" alt="" />
-                    <p>Multi-fluted endmills for machining Titanium and Nickel alloys.</p>
-                    <h3>MEGA-FLUTE®</h3>
-                </div>
-                <div className="brew-guide">
-                    <img src="https://www.technicut.co.uk/images/titan-finisher.jpg" alt="" />
-                    <p>Titanium finishing endmill.</p>
-                    <h3>TITAN FINISHER</h3>
-                </div>
-                <div className="brew-guide">
-                    <img src="https://www.technicut.co.uk/images/titan-xtreme.jpg" alt="" />
-                    <p>Ripper endmill for heavy duty titanium roughing.</p>
-                    <h3>TITAN X-TREME</h3>
-                </div>
-                <div className="brew-guide">
-                    <img src="https://www.technicut.co.uk/images/blizzard-finisher.jpg" alt="" />
-                    <p>Finishing endmill for aluminium machining.</p>
-                    <h3>BLIZZARD FINISHER</h3>
-                </div>
-                <div className="brew-guide">
-                    <img src="https://www.technicut.co.uk/images/blizzard-rougher.jpg" alt="" />
-                    <p>Roughing endmill for aluminium machining.</p>
-                    <h3>BLIZZARD ROUGHER</h3>
-                </div>
-                <div className="brew-guide">
-                    <img src="https://www.technicut.co.uk/images/sabre-drill.jpg" alt="" />
-                    <p>Drills for machining all aerospace materials.</p>
-                    <h3>SABRE DRILL</h3>
-                </div>
+            <div className="row isotope-grid">
+                {products?.map((item: any) => (
+                    <div className='guide-lading col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women'>
+                        <div className="brew-guide">
+                            <img src={item.options[0].pictures[0].icon} alt="" />
+                            {/* <p> {item.options[0].price} </p> */}
+                            <h3>{item.name}</h3>
+                        </div>
+                    </div>
+                ))}
             </div>
+
             {/* <div className='featured-products-container'>
                 <h2>Featured Products</h2>
                 <div className='featured-products'>

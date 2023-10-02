@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import api from '@services/apis'
+import { message } from 'antd';
 
 interface Subcategory {
     title: string,
@@ -10,7 +11,7 @@ export default function AddCategory() {
     const imgPreviewRef = useRef();
     const [categories, setCategories] = useState([]);
     console.log("categories", categories)
-    const [pictures, setPictures] = useState<Picture[]>([]);
+
     const [avatarFile, setAvatarFile] = useState<File | null>(null);
 
     useEffect(() => {
@@ -24,26 +25,26 @@ export default function AddCategory() {
             })
     }, [])
 
-    function addNewCategory(e: FormDataEvent) {
+    function addNewCategory(e: React.FormEvent) {
         e.preventDefault();
-        let formData = new FormData();
-        formData.append("category", JSON.stringify({
-            title: (e.target as any).title.value,
-        }))
-        formData.append("imgs", avatarFile!)
 
-        api.categoryApi.create(formData)
+        let data = {
+            title: (e.target as any).title.value
+        }
+
+        api.categoryApi.create(data)
             .then(res => {
                 console.log("res", res)
+                message.success("Add category successfully")
             })
             .catch(err => {
 
             })
 
-        window.alert("Thêm caterogies thành công")
+
     }
     return (
-        <form className='admin_container' onSubmit={(e) => {
+        <form className='admin_container' onSubmit={(e: any) => {
             addNewCategory(e);
         }}>
             <h2>Add Categories</h2>
@@ -51,10 +52,10 @@ export default function AddCategory() {
                 <div className='product_infor'>
                     <div className="form_group">
                         <label htmlFor="">Categories Title</label><br />
-                        <input style={{ color: 'black' }} name='price' type="text" />
+                        <input style={{ color: 'black' }} name='title' type="text" />
                     </div>
                 </div>
-                <div>
+                {/* <div>
                     <label htmlFor="">Avatar</label><br />
                     <input name='imgs' type="file" onChange={(e) => {
                         if (e.target.files) {
@@ -65,7 +66,7 @@ export default function AddCategory() {
                         }
                     }} />
                     <img ref={imgPreviewRef} className='mt-4' style={{ width: "100px", height: "100px", borderRadius: "50%" }} />
-                </div>
+                </div> */}
             </div>
 
             <button className='addProduct_btn' type='submit'>Add Categories</button>
