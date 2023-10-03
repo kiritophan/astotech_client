@@ -15,7 +15,6 @@ export default function CartCom() {
     }, 0)
     console.log("subTotal", subTotal)
 
-
     return (
         <div>
 
@@ -99,6 +98,7 @@ export default function CartCom() {
                                             <th scope="col">Qty</th>
                                             <th scope="col">Unit Price</th>
                                             <th scope="col">Amount</th>
+                                            <th scope="col">Action</th>
                                         </tr>
 
                                     </thead>
@@ -119,7 +119,17 @@ export default function CartCom() {
 
                                                     <td>{item.option.price}</td>
                                                     <td>{item.quantity * item.option.price}</td>
+                                                    <td>
+                                                        <span onClick={() => {
+                                                            userStore.socket?.emit("deleteItemFromCart", {
+                                                                receiptId: userStore.cart?.id,
+                                                                optionId: item.optionId,
+                                                            })
 
+                                                        }} className="material-symbols-outlined" style={{ cursor: 'pointer' }}>
+                                                            delete
+                                                        </span>
+                                                    </td>
                                                 </tr>
                                             })
                                         }
