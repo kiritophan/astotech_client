@@ -1,0 +1,253 @@
+.ProductDetail {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 50px;
+    margin-bottom: 50px;
+
+    .ProductDetail__image {
+        display: flex;
+        justify-content: space-between;
+        width: 50%;
+
+        .ProductDetail__image__options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 12%;
+
+            div {
+                width: 100%;
+
+                img {
+                    width: 80px;
+                    height: 80px;
+                    border-radius: 5px;
+                    object-fit: cover;
+
+                    &:hover {
+                        cursor: pointer;
+                        transform: scale(1.1);
+                        // border: 1px solid black;
+                        border-color: #707072;
+                    }
+                }
+            }
+
+        }
+
+        .ProductDetail__image__main {
+            width: 85%;
+
+            img {
+                width: 100%;
+                border-radius: 10px;
+            }
+        }
+    }
+
+    .ProductDetail__infor {
+        width: 30%;
+        margin-top: 10px;
+
+        p {
+            font-size: 1.25rem;
+        }
+
+        .ProductDetail__infor__options {
+            display: flex;
+            // justify-content: space-between;
+            margin: 10px 0px;
+
+            div {
+                width: 25%;
+                border-radius: 5px;
+
+                img {
+                    // width: 100%;
+                    width: 80px;
+                    height: 80px;
+                    object-fit: cover;
+                    border-radius: 5px;
+                    cursor: pointer;
+
+                    &:hover {
+                        transform: scale(1.1);
+                        border: 1px solid black;
+                    }
+                }
+            }
+        }
+
+        .Add__btn {
+            background-color: #c43a10;
+            color: #fff;
+            width: 80%;
+            padding: 20px 0px;
+            font-size: 1.3rem;
+
+            margin-left: 30px;
+
+            &:hover {
+                background-color: #b65b3f;
+            }
+        }
+
+        .favorite__button {
+            display: flex;
+            align-items: center;
+            background-color: #fff;
+            padding: 20px 0px;
+            width: 80%;
+            border-radius: 30px;
+            border: 2px solid #cacacb;
+            justify-content: center;
+            margin-left: 30px;
+            margin-top: 20px;
+
+            span {
+                margin-left: 10px;
+            }
+
+            &:hover {
+                border-color: rgb(151, 149, 149);
+            }
+        }
+    }
+}
+
+.blur-background {
+    opacity: 0.3;
+    // filter: blur(2px);
+    /* Adjust the blur level as needed */
+}
+
+
+.content-item {
+    padding: 30px 0;
+    background-color: #FFFFFF;
+}
+
+.content-item.grey {
+    background-color: #F0F0F0;
+    padding: 50px 0;
+    height: 100%;
+}
+
+.content-item h2 {
+    font-weight: 700;
+    font-size: 35px;
+    line-height: 45px;
+    text-transform: uppercase;
+    margin: 20px 0;
+}
+
+.content-item h3 {
+    font-weight: 400;
+    font-size: 20px;
+    color: #555555;
+    margin: 10px 0 15px;
+    padding: 0;
+}
+
+.content-headline {
+    height: 1px;
+    text-align: center;
+    margin: 20px 0 70px;
+}
+
+.content-headline h2 {
+    background-color: #FFFFFF;
+    display: inline-block;
+    margin: -20px auto 0;
+    padding: 0 20px;
+}
+
+.grey .content-headline h2 {
+    background-color: #F0F0F0;
+}
+
+.content-headline h3 {
+    font-size: 14px;
+    color: #AAAAAA;
+    display: block;
+}
+
+
+#comments {
+    box-shadow: 0 -1px 6px 1px rgba(0, 0, 0, 0.1);
+    background-color: #FFFFFF;
+}
+
+#comments form {
+    margin-bottom: 30px;
+}
+
+#comments .btn {
+    margin-top: 7px;
+}
+
+#comments form fieldset {
+    clear: both;
+}
+
+#comments form textarea {
+    height: 100px;
+}
+
+#comments .media {
+    border-top: 1px dashed #DDDDDD;
+    padding: 20px 0;
+    margin: 0;
+}
+
+#comments .media>.pull-left {
+    margin-right: 20px;
+}
+
+#comments .media img {
+    max-width: 100px;
+}
+
+#comments .media h4 {
+    margin: 0 0 10px;
+}
+
+#comments .media h4 span {
+    font-size: 14px;
+    float: right;
+    color: #999999;
+}
+
+#comments .media p {
+    margin-bottom: 15px;
+    text-align: justify;
+}
+
+#comments .media-detail {
+    margin: 0;
+}
+
+#comments .media-detail li {
+    color: #AAAAAA;
+    font-size: 12px;
+    padding-right: 10px;
+    font-weight: 600;
+}
+
+#comments .media-detail a:hover {
+    text-decoration: underline;
+}
+
+#comments .media-detail li:last-child {
+    padding-right: 0;
+}
+
+#comments .media-detail li i {
+    color: #666666;
+    font-size: 15px;
+    margin-right: 10px;
+}
+
+.avatar__comment {
+    width: 100px;
+}

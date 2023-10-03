@@ -1,31 +1,97 @@
-import React, { useEffect, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux';
-import { StoreType } from '../../../stores';
-import '../productOptions/product.scss';
+// import React, { useEffect, useState } from 'react'
+// import { useSelector, useDispatch } from 'react-redux';
+// import { StoreType } from '../../../stores';
+// import '../productOptions/product.scss';
+// import api from '@/services/apis';
+// import { useNavigate, useParams } from 'react-router-dom';
+
+
+import React, { useEffect, useState } from 'react';
+import './productDetail.scss';
+import { useParams } from 'react-router-dom';
 import api from '@/services/apis';
-import { useNavigate, useParams } from 'react-router-dom';
+// import ProductPopup from '../ProductPopup/ProductPopup';
+// import Comment from '@/components/Comment/Comment';
+import { StoreType } from '@/stores';
+import { useSelector } from 'react-redux';
+import { ReceiptDetail } from '@/stores/slices/user.slice';
+import { message } from 'antd';
+import dateFormat from 'dateformat';
+// import { Comment } from '@/stores/slices/user.slice';
+import moment from 'moment';
 
-
+interface Product {
+    id: string,
+    name: string,
+    des: string,
+    price: number,
+    options: any[]
+}
 
 export default function ProductDetail() {
+    // const { id } = useParams();
+    // const userStore = useSelector((store: StoreType) => {
+    //     return store.userStore
+    // })
+
+    // const productStore = useSelector((store: StoreType) => {
+
+    //     return store.productStore
+    // })
+
+
+    // const [product, setProduct] = useState(null);
+
+    // const [quantity, setQuantity] = useState(1);
+
+    // const [optionPictureIndex, setOptionPictureIndex] = useState(0)
+
+    // const [optionIndex, setOptionIndex] = useState(0)
+
+    // useEffect(() => {
+    //     if (id) {
+    //         api.productApi.findById(id)
+    //             .then(res => {
+    //                 if (res.status === 200) {
+    //                     setProduct(res.data.data)
+    //                 }
+    //             })
+    //     }
+    // }, [id])
+
+    // console.log("product", product);
+    // console.log("id", id)
+
     const { id } = useParams();
     const userStore = useSelector((store: StoreType) => {
         return store.userStore
     })
 
-    const productStore = useSelector((store: StoreType) => {
+    // const commentStore = useSelector((store: StoreType) => {
+    //     return store.commentStore
+    // })
 
-        return store.productStore
-    })
+    const [listComments, setListComments] = useState<Comment[] | null>(null)
 
+    // useEffect(() => {
+    //     if (commentStore.data) {
+    //         setListComments(commentStore.data?.filter((item: any) => item.productId == id))
+    //     }
+    // }, [id, commentStore])
 
-    const [product, setProduct] = useState(null);
+    const [comments, setComments] = useState<Comment[] | null>(null)
 
-    const [quantity, setQuantity] = useState(1);
+    // useEffect(() => {
+    //     if (userStore.comments) {
+    //         setComments(userStore.comments?.filter((item: any) => item.productId == id))
+    //     }
+    // }, [id, userStore])
 
-    const [optionPictureIndex, setOptionPictureIndex] = useState(0)
+    const [product, setProduct] = useState<Product | null>(null);
+    const [selectedOption, setSelectedOption] = useState(0); // Added state for selected option
+    const [isOpenModal, setIsOpenModal] = useState(false);
+    const [productData, setProductData] = useState<Product | null>(null);
 
-    const [optionIndex, setOptionIndex] = useState(0)
 
     useEffect(() => {
         if (id) {
@@ -38,11 +104,69 @@ export default function ProductDetail() {
         }
     }, [id])
 
-    console.log("product", product);
-    console.log("id", id)
+
+    const handleOptionClick = (index: number) => {
+        setSelectedOption(index);
+    }
+
+    function handleChangeImage(url: string) {
+        const mainImage = document.querySelector('.main__product__image') as HTMLImageElement;
+        if (mainImage) {
+            mainImage.src = url;
+        }
+    }
+
+    const handleAddToCart = () => {
+        const cart = userStore.cart?.detail;
+        if (cart && product && product.options && product.options[selectedOption]) {
+            const selectedProductOption = product.options[selectedOption];
+            const foundItem = cart.find((item: ReceiptDetail) => item.optionId === selectedProductOption.id);
+
+            if (foundItem) {
+                const quantity = foundItem.quantity + 1;
+                if (userStore.socket) {
+                    userStore.socket.emit("addToCart", {
+                        receiptId: userStore.cart?.id,
+                        optionId: selectedProductOption.id,
+                        quantity: quantity
+                    });
+                }
+
+                setProductData(selectedProductOption);
+                setIsOpenModal(true);
+                message.success("Add To Cart Successfully");
+
+                setTimeout(() => {
+                    setIsOpenModal(false); // Close the modal after 2 seconds
+                }, 2000);
+            } else {
+                if (userStore.socket) {
+                    userStore.socket.emit("addToCart", {
+                        receiptId: userStore.cart?.id,
+                        optionId: selectedProductOption.id,
+                        quantity: 1,
+                    });
+                }
+            }
+        }
+    }
+
+    const [content, setContent] = useState("");
+
+    function handleSendComment(e: React.FormEvent) {
+        e.preventDefault();
+        if (userStore.socket) {
+            userStore.socket.emit("createComment", {
+                socketId: userStore.socket?.id,
+                content,
+                productId: id
+            });
+        }
+        setContent("");
+    }
     return (
         <div>
-            <section className="sec-product-detail bg0 p-t-65 p-b-60">
+            {/* <section className="sec-product-detail bg0 p-t-65 p-b-60">
                 <div className="container">
                     <div className="row">
                         <div className="col-md-6 col-lg-7 p-b-30">
@@ -136,7 +260,7 @@ export default function ProductDetail() {
                                 <p className="stext-102 cl3 p-t-23">
                                     {(product as any)?.des}
                                 </p>
-                                {/*  */}
+
                                 <div className="p-t-33">
 
                                     <div className="flex-w flex-r-m p-b-10">
@@ -154,7 +278,7 @@ export default function ProductDetail() {
                                                     className="mtext-104 cl3 txt-center num-product"
                                                     type="number"
                                                     name="num-product"
-                                                    // defaultValue={1}
+
                                                     value={quantity}
                                                 />
                                                 <div className="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
@@ -176,7 +300,7 @@ export default function ProductDetail() {
                                         </div>
                                     </div>
                                 </div>
-                                {/*  */}
+
                                 <div className="flex-w flex-m p-l-100 p-t-40 respon7">
                                     <div className="flex-m bor9 p-r-10 m-r-11">
                                         <a
@@ -262,7 +386,7 @@ export default function ProductDetail() {
                                         </p>
                                     </div>
                                 </div>
-                                {/* - */}
+
                                 <div className="tab-pane fade" id="information" role="tabpanel">
                                     <div className="row">
                                         <div className="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
@@ -397,10 +521,239 @@ export default function ProductDetail() {
                     <span className="stext-107 cl6 p-lr-25">SKU: JAK-01</span>
                     <span className="stext-107 cl6 p-lr-25">Categories: {(product as any)?.name}</span>
                 </div>
-            </section>
+            </section> */}
+
+            <div className={`ProductDetail`}>
+                <div className='ProductDetail__image'>
+                    <div className='ProductDetail__image__options'>
+                        {product?.options[selectedOption].pictures.map((item: any, index: number) => (
+                            <div key={index}>
+                                <img src={item.icon} alt="" onMouseOver={() => handleChangeImage(item.icon)} />
+                            </div>
+                        ))}
+                    </div>
+                    <div className='ProductDetail__image__main'>
+                        <img src={product?.options[selectedOption].pictures[0].icon} alt="" className='main__product__image' />
+                    </div>
+                </div>
+                <div className='ProductDetail__infor'>
+                    <h3>{product?.name}</h3>
+                    <p>${product?.options[0].price}</p>
+                    <div className="wrap-num-product flex-w m-r-20 m-tb-10">
+                        <div className="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+                            <i className="fs-16 zmdi zmdi-minus" />
+                        </div>
+                        <input
+                            className="mtext-104 cl3 txt-center num-product"
+                            type="number"
+                            name="num-product"
+
+                            value={1}
+                        />
+                        <div className="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
+                            <i className="fs-16 zmdi zmdi-plus" />
+                        </div>
+                    </div>
+                    <div className='ProductDetail__infor__options'>
+                        {product?.options.map((item: any, index: number) => (
+                            <div key={index}>
+                                <img src={item.pictures[0].icon} alt="" onClick={() => handleOptionClick(index)} />
+                            </div>
+                        ))}
+                    </div>
+                    <p>{product?.des}</p>
+                    <button className='Add__btn' onClick={handleAddToCart}>Add to Cart</button>
 
 
+                </div>
 
+                {/* {isOpenModal && productData && <ProductPopup product={productData} setIsOpenModal={setIsOpenModal} name={product?.name || ''} price={product?.price || 0} />} */}
+            </div>
+            <div className="bor10 m-t-50 p-t-43 p-b-40">
+
+                <div className="tab01">
+
+                    <ul className="nav nav-tabs" role="tablist">
+                        <li className="nav-item p-b-10">
+                            <a
+                                className="nav-link active"
+                                data-toggle="tab"
+                                href="#description"
+                                role="tab"
+                            >
+                                Description
+                            </a>
+                        </li>
+                        <li className="nav-item p-b-10">
+                            <a
+                                className="nav-link"
+                                data-toggle="tab"
+                                href="#information"
+                                role="tab"
+                            >
+                                Additional information
+                            </a>
+                        </li>
+                        <li className="nav-item p-b-10">
+                            <a
+                                className="nav-link"
+                                data-toggle="tab"
+                                href="#reviews"
+                                role="tab"
+                            >
+                                Reviews (1)
+                            </a>
+                        </li>
+                    </ul>
+
+                    <div className="tab-content p-t-43">
+
+                        <div
+                            className="tab-pane fade show active"
+                            id="description"
+                            role="tabpanel"
+                        >
+                            <div className="how-pos2 p-lr-15-md">
+                                <p className="stext-102 cl6">
+                                    {(product as any)?.des}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className="tab-pane fade" id="information" role="tabpanel">
+                            <div className="row">
+                                <div className="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
+                                    <ul className="p-lr-28 p-lr-15-sm">
+                                        <li className="flex-w flex-t p-b-7">
+                                            <span className="stext-102 cl3 size-205">Weight</span>
+                                            <span className="stext-102 cl6 size-206">0.79 kg</span>
+                                        </li>
+                                        <li className="flex-w flex-t p-b-7">
+                                            <span className="stext-102 cl3 size-205">Dimensions</span>
+                                            <span className="stext-102 cl6 size-206">
+                                                110 x 33 x 100 cm
+                                            </span>
+                                        </li>
+                                        <li className="flex-w flex-t p-b-7">
+                                            <span className="stext-102 cl3 size-205">Materials</span>
+                                            <span className="stext-102 cl6 size-206">60% cotton</span>
+                                        </li>
+                                        <li className="flex-w flex-t p-b-7">
+                                            <span className="stext-102 cl3 size-205">Color</span>
+                                            <span className="stext-102 cl6 size-206">
+                                                Black, Blue, Grey, Green, Red, White
+                                            </span>
+                                        </li>
+                                        <li className="flex-w flex-t p-b-7">
+                                            <span className="stext-102 cl3 size-205">Size</span>
+                                            <span className="stext-102 cl6 size-206">XL, L, M, S</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="tab-pane fade" id="reviews" role="tabpanel">
+                            <div className="row">
+                                <div className="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
+                                    <div className="p-b-30 m-lr-15-sm">
+
+                                        <div className="flex-w flex-t p-b-68">
+                                            <div className="wrap-pic-s size-109 bor0 of-hidden m-r-18 m-t-6">
+                                                <img src="" alt="AVATAR" />
+                                            </div>
+                                            <div className="size-207">
+                                                <div className="flex-w flex-sb-m p-b-17">
+                                                    <span className="mtext-107 cl2 p-r-20">
+                                                        Ariana Grande
+                                                    </span>
+                                                    <span className="fs-18 cl11">
+                                                        <i className="zmdi zmdi-star" />
+                                                        <i className="zmdi zmdi-star" />
+                                                        <i className="zmdi zmdi-star" />
+                                                        <i className="zmdi zmdi-star" />
+                                                        <i className="zmdi zmdi-star-half" />
+                                                    </span>
+                                                </div>
+                                                <p className="stext-102 cl6">
+                                                    Quod autem in homine praestantissimum atque optimum est,
+                                                    id deseruit. Apud ceteros autem philosophos
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <form className="w-full">
+                                            <h5 className="mtext-108 cl2 p-b-7">Add a review</h5>
+                                            <p className="stext-102 cl6">
+                                                Your email address will not be published. Required fields
+                                                are marked *
+                                            </p>
+                                            <div className="flex-w flex-m p-t-50 p-b-23">
+                                                <span className="stext-102 cl3 m-r-16">Your Rating</span>
+                                                <span className="wrap-rating fs-18 cl11 pointer">
+                                                    <i className="item-rating pointer zmdi zmdi-star-outline" />
+                                                    <i className="item-rating pointer zmdi zmdi-star-outline" />
+                                                    <i className="item-rating pointer zmdi zmdi-star-outline" />
+                                                    <i className="item-rating pointer zmdi zmdi-star-outline" />
+                                                    <i className="item-rating pointer zmdi zmdi-star-outline" />
+                                                    <input
+                                                        className="dis-none"
+                                                        type="number"
+                                                        name="rating"
+                                                    />
+                                                </span>
+                                            </div>
+                                            <div className="row p-b-25">
+                                                <div className="col-12 p-b-5">
+                                                    <label className="stext-102 cl3" htmlFor="review">
+                                                        Your review
+                                                    </label>
+                                                    <textarea
+                                                        className="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10"
+                                                        id="review"
+                                                        name="review"
+                                                        defaultValue={""}
+                                                    />
+                                                </div>
+                                                <div className="col-sm-6 p-b-5">
+                                                    <label className="stext-102 cl3" htmlFor="name">
+                                                        Name
+                                                    </label>
+                                                    <input
+                                                        className="size-111 bor8 stext-102 cl2 p-lr-20"
+                                                        id="name"
+                                                        type="text"
+                                                        name="name"
+                                                    />
+                                                </div>
+                                                <div className="col-sm-6 p-b-5">
+                                                    <label className="stext-102 cl3" htmlFor="email">
+                                                        Email
+                                                    </label>
+                                                    <input
+                                                        className="size-111 bor8 stext-102 cl2 p-lr-20"
+                                                        id="email"
+                                                        type="text"
+                                                        name="email"
+                                                    />
+                                                </div>
+                                            </div>
+                                            <button className="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10">
+                                                Submit
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="bg6 flex-c-m flex-w size-302 m-t-73 p-tb-15">
+                <span className="stext-107 cl6 p-lr-25">SKU: JAK-01</span>
+                <span className="stext-107 cl6 p-lr-25">Categories: {(product as any)?.name}</span>
+            </div>
         </div>
     )
 }
