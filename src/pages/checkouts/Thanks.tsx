@@ -10,8 +10,8 @@ export default function Thanks() {
                 <div className="wrapper-1">
                     <div className="wrapper-2">
                         <h1 className='thanks-title'>Thank you !</h1>
-                        <p>Thanks for subscribing to our news letter.</p>
-                        <p>you should receive a confirmation email soon</p>
+                        <p>Thank you for the continued trust you have placed in our brand. Our continued success depends on the loyalty and support of customers like you.</p>
+                        <p>Your support means the world to us. Thank you and your business. Hope to continue working with you in the near future.</p>
                         <button className="go-home" onClick={() => navigete("/")}>go home</button>
                     </div>
                     <div className="footer-like">
