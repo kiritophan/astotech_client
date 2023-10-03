@@ -1,12 +1,25 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { StoreType } from '@/stores';
-import { User } from '@/stores/slices/user.slice'
+// import { User } from '@/stores/slices/user.slice'
 import { message } from 'antd';
-export default function Login() {
+import { googleLogin } from '../../firebase';
+import { User } from 'firebase/auth';
 
+import api from '@/services/apis';
+import { userAction } from '@/stores/slices/user.slice';
+
+interface UserGoogle extends User {
+  accessToken: string
+}
+
+
+
+
+export default function Login() {
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -49,6 +62,8 @@ export default function Login() {
     })
   }
   console.log("userStore", userStore);
+
+
 
   return (
 
@@ -199,6 +214,39 @@ export default function Login() {
                   handleLogin(e)
                 }} id="login-form" className="form" action="" method="post">
                   <h3 className="text-center text-info">Login</h3>
+                  <a onClick={async () => {
+                    try {
+                      await googleLogin()
+                        .then(async (res) => {
+                          let data = {
+                            accessToken: (res.user as UserGoogle).accessToken,
+                            email: res.user.email,
+                            userName: res.user.email,
+                            password: res.user.uid,
+                          }
+                          console.log("data", data)
+                          await api.userApi.googleLogin(data)
+                            .then(res => {
+                              if (res.status == 200) {
+                                localStorage.setItem("token", res.data.token);
+                                dispatch(userAction.reload())
+                              }
+                            })
+                            .catch(err => {
+                              console.log("err", err)
+                              alert("Google Login Failed")
+                            })
+                        })
+                        .catch(err => {
+                          window.alert("Login Google Failed")
+                        })
+
+                    } catch (err) {
+                      window.alert("Login Google Thất bại, thử lại!")
+                    }
+                  }} className="social">
+                    <i className="fab fa-google-plus-g" />
+                  </a>
                   <div className="form-group">
                     <label htmlFor="email" className="text-info">
                       Username or Email:

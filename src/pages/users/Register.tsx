@@ -30,7 +30,7 @@ export default function Register() {
           message.success(res.data.message);
         }
         if (res.data) {
-          // navigate("/");
+          message.success(res.data.message);
           window.location.href = "/login";
         }
       })
@@ -125,15 +125,15 @@ export default function Register() {
                       </span>
                     </label>
                     <br />
-                    <button className='button' type='submit'>
+                    <button name="submit" className='button' type='submit'>
                       {isLoading ? <span className='loading-spinner'></span> : "Sign Up"}
                     </button>
-                    {/* <input
+                    <input
                       type="submit"
                       name="submit"
                       className="btn btn-info btn-md"
                       defaultValue="submit"
-                    /> */}
+                    />
                   </div>
                   <div id="register-link" className="text-right">
                     <a href="/login" className="text-info">

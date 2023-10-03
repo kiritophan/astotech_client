@@ -2,6 +2,12 @@ import data from "@/i18n/translation/en";
 import axios from "axios";
 
 export default {
+    googleLogin: async (data: any) => {
+        return await axios.post(
+            import.meta.env.VITE_APP_SERVER_HOST_API + "users/google-login",
+            data,
+        )
+    },
     register: async (newUser: any) => {
         return await axios.post(
             import.meta.env.VITE_APP_SERVER_HOST_API + "users/register",
