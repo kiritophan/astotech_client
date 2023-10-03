@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import api from '@services/apis'
+import { message } from 'antd';
 
 interface Category {
     id: string;
@@ -22,6 +23,7 @@ interface Picture {
 }
 export default function AddProduct() {
     const imgPreviewRef = useRef();
+    const [loading, setLoading] = useState(false);
     const [categories, setCategories] = useState([]);
     console.log("categories", categories)
     const [pictures, setPictures] = useState<Picture[]>([]);
@@ -131,7 +133,9 @@ export default function AddProduct() {
                 </div>
             </div>
 
-            <button className='addProduct_btn' type='submit'>Add Product</button>
+            <button className='addProduct_btn' type='submit'>
+                {loading ? <span className='loading-spinner'></span> : "Add Product"}
+            </button>
         </form>
     )
 }

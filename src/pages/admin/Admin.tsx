@@ -65,7 +65,7 @@ export default function Admin() {
                                 <span className="ml-3">Admin</span>
                             </Link>
                         </li>
-                        <li>
+                        {/* <li>
                             <a
                                 href="#"
                                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
@@ -82,7 +82,7 @@ export default function Admin() {
                                 </svg>
                                 <span className="ml-3">Dashboard</span>
                             </a>
-                        </li>
+                        </li> */}
                         <li>
                             <a
                                 href="/admin/products"
@@ -131,7 +131,7 @@ export default function Admin() {
                                 </span>
                             </Link>
                         </li>
-                        <li>
+                        {/* <li>
                             <Link
                                 to="add-products"
                                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
@@ -150,8 +150,8 @@ export default function Admin() {
                                     Products
                                 </span>
                             </Link>
-                        </li>
-                        <li>
+                        </li> */}
+                        {/* <li>
                             <a
                                 href="#"
                                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
@@ -192,7 +192,7 @@ export default function Admin() {
                                 </svg>
                                 <span className="flex-1 ml-3 whitespace-nowrap">Sign Up</span>
                             </a>
-                        </li>
+                        </li> */}
                     </ul>
                 </div>
             </aside>

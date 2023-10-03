@@ -1,10 +1,15 @@
 import axios from 'axios';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux';
 import { StoreType } from '@/stores';
 import { User } from '@/stores/slices/user.slice'
+import { message } from 'antd';
 export default function Login() {
+
+  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
   const userStore = useSelector((store: StoreType) => {
     return store.userStore
   })
@@ -12,6 +17,7 @@ export default function Login() {
   const navigate = useNavigate();
   function handleLogin(e: React.FormEvent) {
     e.preventDefault();
+    setLoading(true);
     let data = {
       userNameOrEmail: (e.target as any).userNameOrEmail.value,
       password: (e.target as any).password.value
@@ -20,8 +26,16 @@ export default function Login() {
       .then(res => {
         console.log("res", res)
         if (res.status == 200) {
+          setLoading(false);
+          message.success(res.data.message);
           localStorage.setItem("token", res.data.token)
         }
+
+        if (res.data) {
+          // navigate("/");
+          window.location.href = "/";
+        }
+
       })
       .catch(err => {
         console.log("err", err)
@@ -218,12 +232,15 @@ export default function Login() {
                       </span>
                     </label>
                     <br />
-                    <input
+                    <button className='button btn btn-info btn-md' type='submit'>
+                      {isLoading ? <span className='loading-spinner'></span> : "Sign In"}
+                    </button>
+                    {/* <input
                       type="submit"
                       name="submit"
                       className="btn btn-info btn-md"
                       defaultValue="submit"
-                    />
+                    /> */}
                   </div>
                   <div id="register-link" className="text-right">
                     <a href="/register" className="text-info">

@@ -17,6 +17,7 @@ export default function RouteSetup() {
           {RouteProduct}
         </Route>
         <Route path="/checkout" element={Lazy(() => import("@pages/checkouts/Checkout"))()}></Route>
+        <Route path="/thanks" element={Lazy(() => import("@pages/checkouts/Thanks"))()}></Route>
         {AdminRoute}
       </Routes>
     </BrowserRouter>

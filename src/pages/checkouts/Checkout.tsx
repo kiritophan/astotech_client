@@ -71,6 +71,9 @@ export default function Checkout() {
         }
     }
 
+    console.log("userStore", userStore);
+
+
     const subTotal = cart?.reduce((total: number, item: any) => {
         return total += item.quantity * item.option.price
     }, 0)

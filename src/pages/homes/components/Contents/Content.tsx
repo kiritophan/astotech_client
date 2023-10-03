@@ -50,7 +50,7 @@ export default function Content() {
                 {products?.map((item: any) => (
                     <div className='guide-lading col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women'>
                         <div className="brew-guide">
-                            <img src={item.options[0].pictures[0].icon} alt="" />
+                            <img src={item.options[0].pictures[0].icon} alt="" onClick={() => navigate(`/product-detail/${item.id}`)} />
                             {/* <p> {item.options[0].price} </p> */}
                             <h3>{item.name}</h3>
                         </div>

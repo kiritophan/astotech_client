@@ -9,21 +9,21 @@ import { Modal } from 'antd'
 import RouteSetup from './routes/RouteSetup'
 import { Socket, io } from 'socket.io-client'
 import { receiptAction } from './stores/slices/receipt.slice'
-
+import MessageButton from './components/MessageButton/MessageButton'
+import api from './services/apis'
 /* Context Config */
 export const RootContext = createContext(0);
 
 function App() {
-  // const dispatch = useDispatch()
-  // const userStore = useSelector((store: StoreType) => {
-  //   return store.userStore
-  // })
+  const dispatch = useDispatch();
+  const [openChat, setOpenChat] = useState(false);
+  const userStore = useSelector((store: StoreType) => store.userStore);
 
-  // const receiptStore = useSelector((store: StoreType) => {
-  //   return store.receiptStore
-  // })
+  const receiptStore = useSelector((store: StoreType) => {
+    return store.receiptStore
+  })
 
-  // /* Check Token */
+  /* Check Token */
   // useEffect(() => {
   //   axios.post("http://127.0.0.1:3000/api/v1/authentication", {
   //     token: localStorage.getItem("token")
@@ -40,33 +40,45 @@ function App() {
   //     })
   // }, [])
 
-  // useEffect(() => {
-  //   if (userStore) {
-  //     if (!receiptStore.socket) {
-  //       let socket: Socket = io("http://localhost:3001", {
-  //         query: {
-  //           token: localStorage.getItem("token")
-  //         }
-  //       })
-  //       dispatch(receiptAction.connectSocket(
-  //         socket
-  //       ))
-  //     } else {
-  //       receiptStore.socket.on("onCart", (cart: any) => {
-  //         dispatch(receiptAction.setCart(cart))
-  //       })
+  useEffect(() => {
+    api.userApi.authentication()
+      .then(res => {
+        if (res.status == 200) {
+          dispatch(userAction.setData(res.data.data))
+        }
+        if (res.status == 213) {
+          localStorage.removeItem("token")
+        }
+      })
+      .catch(err => {
+        console.log("err", err);
+      })
+  }, [])
 
-  //       receiptStore.socket.on("onReceipt", () => {
+  useEffect(() => {
+    if (userStore) {
+      if (!receiptStore.socket) {
+        let socket: Socket = io("http://localhost:3001", {
+          query: {
+            token: localStorage.getItem("token")
+          }
+        })
+        dispatch(receiptAction.connectSocket(
+          socket
+        ))
+      } else {
+        receiptStore.socket.on("onCart", (cart: any) => {
+          dispatch(receiptAction.setCart(cart))
+        })
 
-  //       })
-  //     }
-  //   }
-  // }, [userStore, receiptStore])
-  // const [openChat, setOpenChat] = useState(false);
+        receiptStore.socket.on("onReceipt", () => {
 
-  const dispatch = useDispatch();
-  const [openChat, setOpenChat] = useState(false);
-  const userStore = useSelector((store: StoreType) => store.userStore);
+        })
+      }
+    }
+  }, [userStore, receiptStore])
+
+
 
 
   useEffect(() => {
@@ -137,29 +149,19 @@ function App() {
     }
   }, [userStore.reLoad])
 
-  useEffect(() => {
-    console.log("userStore.cart", userStore.cart)
-  }, [userStore.cart])
+  // useEffect(() => {
+  //   console.log("userStore.cart", userStore.cart)
+  // }, [userStore.cart])
 
-  useEffect(() => {
-    console.log("userStore.receipt", userStore.receipts)
-  }, [userStore.receipts])
+  // useEffect(() => {
+  //   console.log("userStore.receipt", userStore.receipts)
+  // }, [userStore.receipts])
+
   return (
     <div>
-      {/* {
-        openChat == false
-          ? <button onClick={() => {
-            Modal.confirm({
-              content: "Mở khung chat với tài khoản của bạn?",
-              onOk: () => {
-                setOpenChat(true)
-              }
-            })
-          }} style={{ position: "fixed", right: "50px", bottom: "50px" }}>Open Chat</button>
-          : <div style={{ width: "400px", position: "fixed", right: 0, bottom: 0 }}>
-            <ChatBox open={openChat} />
-          </div>
-      } */}
+      {openChat == false ? <MessageButton setOpenChat={setOpenChat}></MessageButton> : <div style={{ width: "400px", position: "fixed", right: 0, bottom: 0, zIndex: 999 }}>
+        <ChatBox open={openChat} setOpenChat={setOpenChat} />
+      </div>}
       <RootContext.Provider value={1}>
         <RouteSetup />
       </RootContext.Provider>
