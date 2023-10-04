@@ -40,11 +40,12 @@ export default function Content() {
     console.log("products", products)
     return (
         <>
-            <h2>Our Products</h2>
+            <h2>STORIES, STYLES AND SPORTSWEAR AT ADIDAS, SINCE 1949</h2>
             <p>
-                Technicut are experts in the design and manufacture of high quality, high performance cutting tool solutions for the optimised machining of all aerospace materials.
-                <br /> Technicut excels in the design and manufacture of optimised cutting solutions for the complete array of aerospace materials.
-                <br />Our continual drive to deliver market leading innovations has led to our development of bespoke material substrates, tooling geometries & coatings to provide optimised production performance in all aerospace applications.
+                Sport keeps us fit. Keeps you mindful. Brings us together. Through sport we have the power to change lives. Whether it is through stories of inspiring athletes. Helping you to get up and get moving. Sportswear featuring the latest technologies, to up your performance. Beat your PB.adidas offers a home to the runner, the basketball player, the soccer kid, the fitness enthusiast. The weekend hiker that loves to escape the city. The yoga teacher that spreads the moves. The 3-Stripes are seen in the music scene. On stage, at festivals. Our sports clothing keeps you focused before that whistle blows. During the race. And at the finish lines. We’re here to supportcreators. Improve their game. Their lives. And change the world.
+
+                <br /> adidas is about more than sportswear and workout clothes. We partner with the best in the industry to co-create. This way we offer our fans the sports apparel and style that match their athletic needs, while keeping sustainability in mind. We’re here to support creators. Improve their game. Create change. And we think about the impact we have on our world.
+                <br />adidas designs for and with athletes of all kinds. Creators, who love to change the game. Challenge conventions. Break the rules and define new ones. Then break them again. We supply teams and individuals with athletic clothing pre-match. To stay focussed. We design sports apparel that get you to the finish line. To win the match. We support women, with bras and tights made for purpose. From low to high support. Maximum comfort. We design, innovate and itterate. Testing new technologies in action. On the pitch, the tracks, the court, the pool. Retro workout clothes inspire new streetwear essentials. Like NMD, Ozweego and our Firebird tracksuits. Classic sports models are brought back to life. Like Stan Smith. And Superstar. Now seen on the streets and the stages.
             </p>
             <div className="row isotope-grid">
                 {products?.map((item: any) => (

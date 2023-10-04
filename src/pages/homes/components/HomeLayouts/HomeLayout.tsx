@@ -16,13 +16,13 @@ export default function HomeLayout() {
                         Company,
                         <br />
                         Big
-                        Business.</b></h1>
+                        Business.</b><br /></h1>
                     <p>When running a big business, the number or size of people, goods, and money doesn't matter.
                         I want to prove that even a small team can make the world a better place and move society.
                         Our vision is "Small Company, Big Business."</p>
                 </div>
                 <div className='right-banner'>
-                    <img src="https://storage.googleapis.com/studio-design-asset-files/projects/nBW2XkKqvG/s-2400x1601_v-frms_webp_29e50c94-9b34-4afa-b7b5-5644c9672a1c_middle.webp" alt="" />
+                    <img src="https://www.muji.com/vn/img/panel/WebBannerPC_VNWomenDay.jpg" alt="" />
                 </div>
             </div>
             {/* <div className='guide-lading'>

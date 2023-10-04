@@ -86,7 +86,7 @@ export default function DropdownLogout() {
                         </li>
                     )}
                     <li>
-                        <a className="dropdown-item" onClick={() => {
+                        <a style={{ cursor: 'pointer' }} className="dropdown-item" onClick={() => {
                             handleLogout()
                         }}>
                             {t("logout")}

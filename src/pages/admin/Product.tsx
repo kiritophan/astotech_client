@@ -81,7 +81,11 @@ export default function Product() {
                                                 setProductId(product.id)
                                             }} type="button" className="btn btn-primary">Show</button>
                                         </td>
-                                        <td>@mdo</td>
+                                        <td>
+                                            <button>
+                                                Edit
+                                            </button>
+                                        </td>
                                     </tr>
                                 )
                             })

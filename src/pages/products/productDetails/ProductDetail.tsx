@@ -539,7 +539,7 @@ export default function ProductDetail() {
                 <div className='ProductDetail__infor'>
                     <h3>{product?.name}</h3>
                     <p>${product?.options[0].price}</p>
-                    <div className="wrap-num-product flex-w m-r-20 m-tb-10">
+                    {/* <div className="wrap-num-product flex-w m-r-20 m-tb-10">
                         <div className="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
                             <i className="fs-16 zmdi zmdi-minus" />
                         </div>
@@ -553,7 +553,7 @@ export default function ProductDetail() {
                         <div className="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
                             <i className="fs-16 zmdi zmdi-plus" />
                         </div>
-                    </div>
+                    </div> */}
                     <div className='ProductDetail__infor__options'>
                         {product?.options.map((item: any, index: number) => (
                             <div key={index}>

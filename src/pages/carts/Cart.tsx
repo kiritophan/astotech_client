@@ -49,7 +49,7 @@ export default function CartCom() {
                             <div className="col-md-12">
                                 <div className="text-center">
                                     <i className="fab fa-mdb fa-4x ms-0" style={{ color: "#5d9fc5" }} />
-                                    <p className="pt-0">MDBootstrap.com</p>
+                                    <p className="pt-0">astotech.com</p>
                                 </div>
                             </div>
                             <div className="row">
